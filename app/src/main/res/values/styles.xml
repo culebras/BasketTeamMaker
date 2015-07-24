@@ -1,8 +1,24 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="Separator">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:background">@color/rippleColor</item>
+        <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+    </style>
+
+    <!-- AppBar Style -->
+    <style name="AppBar" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="selectableItemBackground">@null</item>
+    </style>
+
+
+    <!-- Buttons -->
+    <style name="RaiseWaveColorButtonRippleStyle" parent="Material.Drawable.Ripple.Wave.Light">
+        <item name="android:background">@color/colorControlActivated</item>
+        <item name="rd_rippleColor">@color/rippleColor</item>
+        <item name="android:padding">5dp</item>
     </style>
 
 </resources>

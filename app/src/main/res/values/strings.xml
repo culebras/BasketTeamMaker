@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Basket Team Maker</string>
+    <string name="title_players">Lista de jugadores</string>
+
+
+
+
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
