@@ -1,47 +1,121 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"  tools:context=".MainActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvPlayersTitle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:layout_weight="0.7"
+            android:textSize="20sp"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/title_players" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvPlayersTitle"
-                android:text="@string/title_players"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvPlayersCounter"
-                android:text="@null"
-                />
-        </LinearLayout>
-
-        <ListView
-            android:layout_width="match_parent"
+        <TextView
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimary"
+            android:id="@+id/tvPlayersCounter"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/lvPlayers">
-        </ListView>
-        
-
-
-
-
-
+            android:text="@string/counter_players" />
 
     </LinearLayout>
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <View style="@style/Separator" />
 
-</RelativeLayout>
+    <ListView
+        android:id="@+id/lvPlayers"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.6">
+
+    </ListView>
+
+    <View style="@style/Separator" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.rey.material.widget.EditText
+                android:id="@+id/etPlayer"
+                style="@style/Material.Widget.EditText.Light"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="0.7"
+                android:enabled="true"
+                android:hint="@string/et_players"
+                android:inputType="text"
+                android:maxLength="25"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                app:et_labelTextColor="@color/colorControlNormal"
+                app:et_labelTextSize="18sp"
+                app:et_supportMode="charCounter"
+                app:et_supportMaxChars="25" />
+
+            <com.rey.material.widget.Button
+                android:id="@+id/btAddPlayer"
+                style="@style/RaiseWaveColorButtonRippleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_add_player"
+                app:rd_delayClick="untilRelease" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.rey.material.widget.Button
+                android:id="@+id/btClearList"
+                style="@style/RaiseWaveColorButtonRippleStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="0.5"
+                android:text="@string/button_clear_list"
+                app:rd_delayClick="untilRelease" />
+
+            <com.rey.material.widget.Button
+                android:id="@+id/btMakeTeams"
+                style="@style/RaiseWaveColorButtonRippleStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="@string/button_make_teams"
+                app:rd_delayClick="untilRelease" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+

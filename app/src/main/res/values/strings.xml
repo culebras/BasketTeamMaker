@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Basket Team Maker</string>
-    <string name="title_players">Lista de jugadores</string>
+    <string name="title_players">LISTA DE JUGADORES</string>
+    <string name="counter_players">Total: %s</string>
+    <string name="et_players">Jugador</string>
+    <string name="button_add_player">Añadir</string>
+    <string name="button_clear_list">Limpiar lista</string>
+    <string name="button_make_teams">Crear equipos</string>
 
 
 

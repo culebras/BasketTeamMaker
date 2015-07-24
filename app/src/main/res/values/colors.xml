@@ -3,11 +3,11 @@
 
     <color name="colorPrimary">#F44336</color>
     <color name="colorPrimaryDark">#D32F2F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="colorControlNormal">#FF78909C</color>
+    <color name="colorAccent">#FF9800</color>
+    <color name="colorControlNormal">#727272</color>
     <color name="colorControlActivated">#F44336</color>
-    <color name="colorSwitchThumbNormal">#FF78909C</color>
+    <color name="colorSwitchThumbNormal">#727272</color>
 
-    <color name="rippleColor">#FF4081</color>
+    <color name="rippleColor">#FF9800</color>
 
 </resources>
