@@ -8,13 +8,6 @@
         <item name="android:layout_marginTop">10dp</item>
     </style>
 
-    <!-- AppBar Style -->
-    <style name="AppBar" parent="@style/ThemeOverlay.AppCompat.ActionBar">
-        <item name="selectableItemBackground">@null</item>
-    </style>
-
-
-    <!-- Buttons -->
     <style name="RaiseWaveColorButtonRippleStyle" parent="Material.Drawable.Ripple.Wave.Light">
         <item name="android:background">@color/colorPrimaryDark</item>
         <item name="android:textSize">14sp</item>
