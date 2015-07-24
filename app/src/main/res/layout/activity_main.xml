@@ -62,18 +62,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_weight="0.7"
+                android:layout_weight="0.6"
                 android:enabled="true"
                 android:hint="@string/et_players"
                 android:inputType="text"
-                android:maxLength="25"
+                android:maxLength="20"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20sp"
                 app:et_labelTextColor="@color/colorControlNormal"
                 app:et_labelTextSize="18sp"
                 app:et_supportMode="charCounter"
-                app:et_supportMaxChars="25" />
+                app:et_supportMaxChars="20" />
 
             <com.rey.material.widget.Button
                 android:id="@+id/btAddPlayer"
