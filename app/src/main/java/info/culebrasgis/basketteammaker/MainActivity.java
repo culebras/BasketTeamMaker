@@ -61,6 +61,9 @@ public class MainActivity extends Activity {
         etPlayer = (EditText) findViewById(R.id.etPlayer);
         lvPlayers = (ListView) findViewById(R.id.lvPlayers);
         sbUndo = new SnackBar(this);
+        sbUndo.applyStyle(R.style.SnackBarSingleLine)
+                .text(getString(R.string.undo_warning))
+                .actionText(getString(R.string.undo_action));
 
         btAddPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +88,7 @@ public class MainActivity extends Activity {
 
     }
 
-    private void updatePlayersList(){
+    private void updatePlayersList() {
         adapter = new PlayersListAdapter(playersList);
         lvPlayers.setAdapter(adapter);
         tvPlayersCounter.setText(getString(R.string.counter_players, String.valueOf(playersList.size())));
@@ -100,8 +103,7 @@ public class MainActivity extends Activity {
                 a.put(player);
             }
             editor.putString("players", a.toString());
-        }
-        else {
+        } else {
             editor.putString("players", null);
         }
         editor.apply();
@@ -130,8 +132,7 @@ public class MainActivity extends Activity {
             playersList.add(name);
             etPlayer.getText().clear();
             updatePlayersList();
-        }
-        else {
+        } else {
             showAlert(getString(R.string.error_player_name));
         }
     }
@@ -139,33 +140,28 @@ public class MainActivity extends Activity {
     private void clearList() {
         if (playersList.size() == 0) {
             showAlert(getString(R.string.empty_list));
-        }
-        else {
+        } else {
             undoPlayerslist = new ArrayList<>(playersList);
             playersList.clear();
             updatePlayersList();
             if (sbUndo.getState() == SnackBar.STATE_SHOWN) {
                 sbUndo.dismiss();
-            }
-            else {
-                sbUndo.applyStyle(R.style.SnackBarSingleLine)
-                        .text(getString(R.string.undo_warning))
+            } else {
+                sbUndo.actionClickListener(new SnackBar.OnActionClickListener() {
+                    @Override
+                    public void onActionClick(SnackBar snackBar, int i) {
+                        playersList = new ArrayList<>(undoPlayerslist);
+                        updatePlayersList();
+                    }
+                })
                         .duration(3000)
-                        .actionText(getString(R.string.undo_action))
-                        .actionClickListener(new SnackBar.OnActionClickListener() {
-                            @Override
-                            public void onActionClick(SnackBar snackBar, int i) {
-                                playersList = new ArrayList<>(undoPlayerslist);
-                                updatePlayersList();
-                            }
-                        })
                         .show(this);
             }
         }
     }
 
     private void createTeams() {
-
+        // TODO
     }
 
     private void showAlert(String text) {
@@ -194,8 +190,8 @@ public class MainActivity extends Activity {
             TextView playerName = (TextView) item.findViewById(R.id.tvPlayerName);
             playerName.setText(playersList.get(position));
 
-            Button deletePlayer = (Button) item.findViewById(R.id.btDelete);
-            deletePlayer.setOnClickListener(new View.OnClickListener() {
+            TextView tvDeletePlayer = (TextView) item.findViewById(R.id.tvDeletePlayer);
+            tvDeletePlayer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     playersList.remove(position);
