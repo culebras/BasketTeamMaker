@@ -34,4 +34,12 @@ public class MainActivity extends Activity {
         super.onResume();
         // TODO recuperar la lista de jugadores guardada de manera persistente.
     }
+
+    private void savePlayersList() {
+
+    }
+
+    private String[] recoverPlayersList() {
+        return null;
+    }
 }
