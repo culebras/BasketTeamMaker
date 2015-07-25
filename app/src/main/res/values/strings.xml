@@ -6,6 +6,10 @@
     <string name="button_add_player">Añadir</string>
     <string name="button_clear_list">Limpiar lista</string>
     <string name="button_make_teams">Crear equipos</string>
+    <string name="error_player_name">Debe escribir el nombre del jugador</string>
+    <string name="empty_list">La lista de jugadores ya está vacía</string>
+    <string name="undo_warning">Se borró la lista de jugadores</string>
+    <string name="undo_action">Deshacer</string>
 
 
 

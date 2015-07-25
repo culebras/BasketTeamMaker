@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
+    android:layout_margin="15dp"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -78,7 +78,8 @@
             <com.rey.material.widget.Button
                 android:id="@+id/btAddPlayer"
                 style="@style/RaiseWaveColorButtonRippleStyle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="0.4"
                 android:layout_height="wrap_content"
                 android:text="@string/button_add_player"
                 app:rd_delayClick="untilRelease" />
@@ -103,7 +104,7 @@
                 app:rd_delayClick="untilRelease" />
 
             <com.rey.material.widget.Button
-                android:id="@+id/btMakeTeams"
+                android:id="@+id/btCreateTeams"
                 style="@style/RaiseWaveColorButtonRippleStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

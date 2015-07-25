@@ -1,45 +1,210 @@
 package info.culebrasgis.basketteammaker;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.rey.material.widget.Button;
+import com.rey.material.widget.EditText;
+import com.rey.material.widget.SnackBar;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
-    private static String[] playersList;
+    private ArrayList<String> playersList, undoPlayerslist;
+    private ListView lvPlayers;
+    private PlayersListAdapter adapter;
+    private Button btAddPlayer, btClearList, btCreateTeams;
+    private TextView tvPlayersCounter;
+    private EditText etPlayer;
+    private Toast toast;
+    private SnackBar sbUndo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        playersList = new String[]{"Jugador1", "Jugador2", "Jugador3"};
-
-
-
-
-
-
-
+        initComponents();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        // TODO guardar lista jugadores de manera persistente.
+        savePlayersList(playersList);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        // TODO recuperar la lista de jugadores guardada de manera persistente.
+        playersList = recoverPlayersList();
+        updatePlayersList();
     }
 
-    private void savePlayersList() {
+    private void initComponents() {
+        tvPlayersCounter = (TextView) findViewById(R.id.tvPlayersCounter);
+        btAddPlayer = (Button) findViewById(R.id.btAddPlayer);
+        btClearList = (Button) findViewById(R.id.btClearList);
+        btCreateTeams = (Button) findViewById(R.id.btCreateTeams);
+        etPlayer = (EditText) findViewById(R.id.etPlayer);
+        lvPlayers = (ListView) findViewById(R.id.lvPlayers);
+        sbUndo = new SnackBar(this);
+
+        btAddPlayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addPlayer();
+            }
+        });
+
+        btClearList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearList();
+            }
+        });
+
+        btCreateTeams.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                createTeams();
+            }
+        });
 
     }
 
-    private String[] recoverPlayersList() {
-        return null;
+    private void updatePlayersList(){
+        adapter = new PlayersListAdapter(playersList);
+        lvPlayers.setAdapter(adapter);
+        tvPlayersCounter.setText(getString(R.string.counter_players, String.valueOf(playersList.size())));
     }
+
+    private void savePlayersList(ArrayList<String> players) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = prefs.edit();
+        if (players.size() > 0) {
+            JSONArray a = new JSONArray();
+            for (String player : players) {
+                a.put(player);
+            }
+            editor.putString("players", a.toString());
+        }
+        else {
+            editor.putString("players", null);
+        }
+        editor.apply();
+    }
+
+    private ArrayList<String> recoverPlayersList() {
+        ArrayList<String> players = new ArrayList<>();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String json = prefs.getString("players", null);
+        if (json != null) {
+            try {
+                JSONArray a = new JSONArray(json);
+                for (int i = 0; i < a.length(); i++) {
+                    players.add(a.getString(i));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return players;
+    }
+
+    private void addPlayer() {
+        String name = etPlayer.getText().toString();
+        if (name.length() > 0) {
+            playersList.add(name);
+            etPlayer.getText().clear();
+            updatePlayersList();
+        }
+        else {
+            showAlert(getString(R.string.error_player_name));
+        }
+    }
+
+    private void clearList() {
+        if (playersList.size() == 0) {
+            showAlert(getString(R.string.empty_list));
+        }
+        else {
+            undoPlayerslist = new ArrayList<>(playersList);
+            playersList.clear();
+            updatePlayersList();
+            if (sbUndo.getState() == SnackBar.STATE_SHOWN) {
+                sbUndo.dismiss();
+            }
+            else {
+                sbUndo.applyStyle(R.style.SnackBarSingleLine)
+                        .text(getString(R.string.undo_warning))
+                        .duration(3000)
+                        .actionText(getString(R.string.undo_action))
+                        .actionClickListener(new SnackBar.OnActionClickListener() {
+                            @Override
+                            public void onActionClick(SnackBar snackBar, int i) {
+                                playersList = new ArrayList<>(undoPlayerslist);
+                                updatePlayersList();
+                            }
+                        })
+                        .show(this);
+            }
+        }
+    }
+
+    private void createTeams() {
+
+    }
+
+    private void showAlert(String text) {
+        if (toast == null) {
+            toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+        }
+        if (!toast.getView().isShown()) {
+            toast.setText(text);
+            toast.show();
+        }
+    }
+
+    private class PlayersListAdapter extends ArrayAdapter<String> {
+
+        PlayersListAdapter(ArrayList<String> players) {
+            super(MainActivity.this, R.layout.player_row, players);
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = getLayoutInflater();
+            View item = inflater.inflate(R.layout.player_row, parent, false);
+
+            TextView playerName = (TextView) item.findViewById(R.id.tvPlayerName);
+            playerName.setText(playersList.get(position));
+
+            Button deletePlayer = (Button) item.findViewById(R.id.btDelete);
+            deletePlayer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    playersList.remove(position);
+                    updatePlayersList();
+                }
+            });
+
+            return item;
+        }
+    }
+
 }
