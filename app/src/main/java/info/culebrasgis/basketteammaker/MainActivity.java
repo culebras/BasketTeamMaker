@@ -20,6 +20,7 @@ import com.rey.material.app.SimpleDialog;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.EditText;
 import com.rey.material.widget.SnackBar;
+import com.rey.material.widget.Spinner;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -167,24 +168,28 @@ public class MainActivity extends FragmentActivity {
     private void createTeams() {
         if (playersList.size() < 4) {
             showAlert(getString(R.string.min_players_warning));
+
         } else {
             Dialog.Builder builder = new SimpleDialog.Builder(R.style.SimpleDialogLight) {
                 @Override
+                protected void onBuildDone(Dialog dialog) {
+                    String[] items = new String[playersList.size() - 1];
+                    for (int i = 0; i < playersList.size() - 1 ; i++) {
+                        items[i] = String.valueOf(i+2);
+                    }
+                    ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.row_spn, items);
+                    spinnerAdapter.setDropDownViewResource(R.layout.row_spn_dropdown);
+                    Spinner spinner = (Spinner) dialog.findViewById(R.id.spinner_teams);
+                    spinner.setAdapter(spinnerAdapter);
+                    super.onBuildDone(dialog);
+                }
+
+                @Override
                 public void onPositiveActionClicked(DialogFragment fragment) {
-                    EditText numberTeams = (EditText) fragment.getDialog().findViewById(R.id.etNumberTeams);
-                    String value = numberTeams.getText().toString().trim();
-                    int n = 0;
-                    if (value.length() > 0) {
-                        n = Integer.parseInt(value);
-                    }
-                    if (n < 2) {
-                        showAlert(getString(R.string.min_teams_warning));
-                    } else if (n > playersList.size()) {
-                        showAlert(getString(R.string.max_teams_warning));
-                    } else {
-                        makeTeams(n);
-                        super.onPositiveActionClicked(fragment);
-                    }
+                    Spinner spinner = (Spinner) fragment.getDialog().findViewById(R.id.spinner_teams);
+                    int num = Integer.parseInt(spinner.getSelectedItem().toString());
+                    makeTeams(num);
+                    super.onPositiveActionClicked(fragment);
                 }
 
                 @Override
