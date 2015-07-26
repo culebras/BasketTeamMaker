@@ -183,7 +183,6 @@ public class MainActivity extends FragmentActivity {
                     spinner.setAdapter(spinnerAdapter);
                     super.onBuildDone(dialog);
                 }
-
                 @Override
                 public void onPositiveActionClicked(DialogFragment fragment) {
                     Spinner spinner = (Spinner) fragment.getDialog().findViewById(R.id.spinner_teams);
@@ -191,7 +190,6 @@ public class MainActivity extends FragmentActivity {
                     makeTeams(num);
                     super.onPositiveActionClicked(fragment);
                 }
-
                 @Override
                 public void onNegativeActionClicked(DialogFragment fragment) {
                     super.onNegativeActionClicked(fragment);
