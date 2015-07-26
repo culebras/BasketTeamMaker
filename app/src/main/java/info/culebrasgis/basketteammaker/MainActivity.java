@@ -1,6 +1,7 @@
 package info.culebrasgis.basketteammaker;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -13,6 +14,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rey.material.app.Dialog;
+import com.rey.material.app.DialogFragment;
+import com.rey.material.app.SimpleDialog;
 import com.rey.material.widget.Button;
 import com.rey.material.widget.EditText;
 import com.rey.material.widget.SnackBar;
@@ -161,7 +165,37 @@ public class MainActivity extends Activity {
     }
 
     private void createTeams() {
-        // TODO
+        if (playersList.size() < 4) {
+            showAlert(getString(R.string.min_players_warning));
+        } else {
+            Dialog.Builder builder = new SimpleDialog.Builder(R.style.SimpleDialogLight) {
+                @Override
+                public void onPositiveActionClicked(DialogFragment fragment) {
+                    // TODO
+                    super.onPositiveActionClicked(fragment);
+                }
+
+                @Override
+                public void onNegativeActionClicked(DialogFragment fragment) {
+                    super.onNegativeActionClicked(fragment);
+                }
+            };
+            builder.title(getString(R.string.title_number_teams))
+                    .positiveAction(getString(R.string.ok_dialog))
+                    .negativeAction(getString(R.string.cancel_dialog))
+                    .contentView(R.layout.dialog_number_teams);
+
+            DialogFragment f = DialogFragment.newInstance(builder);
+//            f.show(getFragmentManager(), null);
+
+        }
+    }
+
+    private void makeTeams(int numberTeams) {
+        Intent intent = new Intent(this, TeamsActivity.class);
+        intent.putExtra("numberTeams", numberTeams);
+        intent.putStringArrayListExtra("playersList", playersList);
+        startActivity(intent);
     }
 
     private void showAlert(String text) {

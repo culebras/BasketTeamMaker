@@ -8,6 +8,7 @@
     <TextView
         android:id="@+id/tvPlayerName"
         android:textSize="18sp"
+        android:gravity="center_vertical"
         android:drawableLeft="@drawable/icon_player"
         android:drawableStart="@drawable/icon_player"
         android:layout_centerInParent="true"
