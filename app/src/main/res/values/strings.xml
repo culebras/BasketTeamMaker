@@ -14,6 +14,8 @@
     <string name="title_number_teams">¿Número de equipos?</string>
     <string name="ok_dialog">OK</string>
     <string name="cancel_dialog">Cancelar</string>
+    <string name="min_teams_warning">El número mínimo de equipos debe ser 2</string>
+    <string name="max_teams_warning">El número de equipos no puede superar al número de jugadores</string>
 
 
 

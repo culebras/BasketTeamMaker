@@ -6,10 +6,12 @@
     android:orientation="vertical">
 
     <com.rey.material.widget.EditText
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
         android:foregroundGravity="center_horizontal"
         android:id="@+id/etNumberTeams"
         style="@style/Material.Widget.EditText.Light"
-        android:layout_width="match_parent"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:enabled="true"
         android:inputType="number"

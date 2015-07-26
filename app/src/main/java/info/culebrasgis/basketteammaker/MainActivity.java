@@ -1,10 +1,10 @@
 package info.culebrasgis.basketteammaker;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +26,7 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 
     private ArrayList<String> playersList, undoPlayerslist;
     private ListView lvPlayers;
@@ -171,8 +171,20 @@ public class MainActivity extends Activity {
             Dialog.Builder builder = new SimpleDialog.Builder(R.style.SimpleDialogLight) {
                 @Override
                 public void onPositiveActionClicked(DialogFragment fragment) {
-                    // TODO
-                    super.onPositiveActionClicked(fragment);
+                    EditText numberTeams = (EditText) fragment.getDialog().findViewById(R.id.etNumberTeams);
+                    String value = numberTeams.getText().toString().trim();
+                    int n = 0;
+                    if (value.length() > 0) {
+                        n = Integer.parseInt(value);
+                    }
+                    if (n < 2) {
+                        showAlert(getString(R.string.min_teams_warning));
+                    } else if (n > playersList.size()) {
+                        showAlert(getString(R.string.max_teams_warning));
+                    } else {
+                        makeTeams(n);
+                        super.onPositiveActionClicked(fragment);
+                    }
                 }
 
                 @Override
@@ -184,10 +196,8 @@ public class MainActivity extends Activity {
                     .positiveAction(getString(R.string.ok_dialog))
                     .negativeAction(getString(R.string.cancel_dialog))
                     .contentView(R.layout.dialog_number_teams);
-
             DialogFragment f = DialogFragment.newInstance(builder);
-//            f.show(getFragmentManager(), null);
-
+            f.show(getSupportFragmentManager(), null);
         }
     }
 
