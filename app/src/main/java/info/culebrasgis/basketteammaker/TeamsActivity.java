@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TeamsActivity extends Activity {
 
@@ -27,8 +29,14 @@ public class TeamsActivity extends Activity {
             playersList = intent.getExtras().getStringArrayList("playersList");
         }
 
+        Log.i("test0", playersList.toString());
+
+        playersList = new ArrayList<>(shuffleArrayList(playersList));
+
+        Log.i("test1", playersList.toString());
+
         TextView tv = (TextView) findViewById(R.id.test);
-        tv.setText(String.valueOf(numberTeams)); // TODO
+        tv.setText(printTeams(playersList, numberTeams)); // TODO
     }
 
     @Override
@@ -36,6 +44,41 @@ public class TeamsActivity extends Activity {
         super.onSaveInstanceState(outState);
         outState.putInt("numberTeams", numberTeams);
         outState.putSerializable("playersList", playersList);
+    }
+
+    private ArrayList<String> shuffleArrayList(ArrayList<String> al) {
+        int length = al.size();
+        int randomPosition;
+        String lastItem;
+
+        while (length > 0) {
+            randomPosition = (int) (Math.random() * length--);
+            lastItem = al.get(length);
+            al.set(length, al.get(randomPosition));
+            al.set(randomPosition, lastItem);
+        }
+
+        return al;
+    }
+
+    private String printTeams(ArrayList<String> al, int teams) {
+        int playersPerTeam = al.size() / teams;
+        int rest = al.size() % teams;
+        String result = "";
+
+        for (int i = 0; i < teams; i++) {
+            result += "Team " + (i + 1) + ": ";
+            List<String> l = al.subList(0, playersPerTeam);
+            result += l.toString() + "\n\n";
+            al.subList(0, playersPerTeam).clear();
+        }
+
+        if (rest != 0) {
+            result += "Last team: " + al.toString();
+        }
+
+
+        return result;
     }
 
 }
