@@ -89,10 +89,10 @@ public class TeamsActivity extends Activity {
 
     private String printTeams(ArrayList<String> al, int numTeams) {
         String result = "";
-        String players = "";
+        String players;
         int numPlayers = playersList.size();
         int team = 0;
-        int perTeam = 0;
+        int perTeam;
 
         for (int i = 0; i < numPlayers; i++) {
             perTeam = (int) Math.ceil((numPlayers - i) / (numTeams - team));
