@@ -65,7 +65,7 @@
                 android:layout_weight="0.6"
                 android:enabled="true"
                 android:hint="@string/et_players"
-                android:inputType="text"
+                android:inputType="textCapWords"
                 android:maxLength="20"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
                 android:textColor="@color/colorPrimary"

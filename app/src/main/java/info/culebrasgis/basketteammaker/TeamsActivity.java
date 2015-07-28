@@ -8,7 +8,6 @@ import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class TeamsActivity extends Activity {
 
@@ -61,22 +60,33 @@ public class TeamsActivity extends Activity {
         return al;
     }
 
-    private String printTeams(ArrayList<String> al, int teams) {
-        int playersPerTeam = al.size() / teams;
-        int rest = al.size() % teams;
+    private String printTeams(ArrayList<String> al, int numTeams) {
         String result = "";
+        String players = "";
+        int numPlayers = playersList.size();
+        int team = 0;
+        int perTeam = 0;
 
-        for (int i = 0; i < teams; i++) {
-            result += "Team " + (i + 1) + ": ";
-            List<String> l = al.subList(0, playersPerTeam);
-            result += l.toString() + "\n\n";
-            al.subList(0, playersPerTeam).clear();
+        for (int i = 0; i < numPlayers; i++) {
+            perTeam = (int) Math.ceil((numPlayers - i) / (numTeams - team));
+            players = "";
+
+            for (int y = 0; y < perTeam; y++) {
+                if (y < perTeam - 2) {
+                    players += al.get(i) + ", ";
+                }
+                else if (y < perTeam - 1) {
+                    players += al.get(i) + getString(R.string.and);
+                }
+                else {
+                    players += al.get(i) + ".";
+                }
+                i++;
+            }
+            i--;
+            team++;
+            result += "Equipo " + team + ": " + players + "\n\n";
         }
-
-        if (rest != 0) {
-            result += "Last team: " + al.toString();
-        }
-
 
         return result;
     }

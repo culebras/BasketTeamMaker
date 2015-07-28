@@ -11,11 +11,11 @@
     <string name="undo_warning">Se borró la lista de jugadores</string>
     <string name="undo_action">Deshacer</string>
     <string name="min_players_warning">Debe haber un número mínimo de 4 jugadores para hacer equipos</string>
-    <string name="title_number_teams">¿Número de equipos?</string>
+    <string name="title_number_teams">Número de equipos</string>
     <string name="ok_dialog">OK</string>
     <string name="cancel_dialog">Cancelar</string>
-    <string name="min_teams_warning">El número mínimo de equipos debe ser 2</string>
-    <string name="max_teams_warning">El número de equipos no puede superar al número de jugadores</string>
+    <string name="and">" y "</string>
+
 
 
 
