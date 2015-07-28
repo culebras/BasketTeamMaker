@@ -15,6 +15,9 @@
     <string name="ok_dialog">OK</string>
     <string name="cancel_dialog">Cancelar</string>
     <string name="and">" y "</string>
+    <string name="title_teams">EQUIPOS</string>
+    <string name="button_back">Volver</string>
+    <string name="button_randomize_again">Rehacer equipos</string>
 
 
 

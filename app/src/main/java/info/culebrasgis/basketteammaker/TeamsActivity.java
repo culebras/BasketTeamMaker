@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
+
+import com.rey.material.widget.Button;
 
 import java.util.ArrayList;
 
@@ -13,6 +15,8 @@ public class TeamsActivity extends Activity {
 
     private int numberTeams;
     private ArrayList<String> playersList;
+    private TextView tvResults, tvTeamsTitle;
+    private Button btBack, btRandomizeAgain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,14 +32,9 @@ public class TeamsActivity extends Activity {
             playersList = intent.getExtras().getStringArrayList("playersList");
         }
 
-        Log.i("test0", playersList.toString());
+        initComponents();
 
-        playersList = new ArrayList<>(shuffleArrayList(playersList));
-
-        Log.i("test1", playersList.toString());
-
-        TextView tv = (TextView) findViewById(R.id.test);
-        tv.setText(printTeams(playersList, numberTeams)); // TODO
+        makeTeams();
     }
 
     @Override
@@ -43,6 +42,34 @@ public class TeamsActivity extends Activity {
         super.onSaveInstanceState(outState);
         outState.putInt("numberTeams", numberTeams);
         outState.putSerializable("playersList", playersList);
+    }
+
+    private void initComponents() {
+        tvResults = (TextView) findViewById(R.id.tvResults);
+        tvTeamsTitle = (TextView) findViewById(R.id.tvTeamsTitle);
+        btBack = (Button) findViewById(R.id.btBack);
+        btRandomizeAgain = (Button) findViewById(R.id.btRandomizeAgain);
+
+        btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        btRandomizeAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeTeams();
+            }
+        });
+
+        tvTeamsTitle.setText(String.valueOf(numberTeams) + " " + getString(R.string.title_teams));
+    }
+
+    private void makeTeams() {
+        playersList = new ArrayList<>(shuffleArrayList(playersList));
+        tvResults.setText(printTeams(playersList, numberTeams));
     }
 
     private ArrayList<String> shuffleArrayList(ArrayList<String> al) {
@@ -85,7 +112,12 @@ public class TeamsActivity extends Activity {
             }
             i--;
             team++;
-            result += "Equipo " + team + ": " + players + "\n\n";
+            if (i < numPlayers - 1) {
+                result += "Equipo " + team + ": " + players + "\n\n\n";
+            }
+            else {
+                result += "Equipo " + team + ": " + players;
+            }
         }
 
         return result;
