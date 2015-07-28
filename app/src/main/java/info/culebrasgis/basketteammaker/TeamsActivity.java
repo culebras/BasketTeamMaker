@@ -113,10 +113,10 @@ public class TeamsActivity extends Activity {
             i--;
             team++;
             if (i < numPlayers - 1) {
-                result += "Equipo " + team + ": " + players + "\n\n\n";
+                result += getString(R.string.label_team) + " " + team + ": " + players + "\n\n\n";
             }
             else {
-                result += "Equipo " + team + ": " + players;
+                result += getString(R.string.label_team) + " " + team + ": " + players;
             }
         }
 

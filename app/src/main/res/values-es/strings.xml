@@ -1,0 +1,24 @@
+<resources>
+
+    <string name="app_name">Crear equipos basket</string>
+    <string name="title_players">LISTA DE JUGADORES</string>
+    <string name="counter_players">Total: %1$s</string>
+    <string name="et_players">Jugador</string>
+    <string name="button_add_player">Añadir</string>
+    <string name="button_clear_list">Borrar lista</string>
+    <string name="button_make_teams">Crear equipos</string>
+    <string name="error_player_name">Debe escribir el nombre del jugador</string>
+    <string name="empty_list">La lista de jugadores ya está vacía</string>
+    <string name="undo_warning">Se borró la lista de jugadores</string>
+    <string name="undo_action">Deshacer</string>
+    <string name="min_players_warning">Debe haber un número mínimo de 4 jugadores para hacer equipos</string>
+    <string name="title_number_teams">Número de equipos</string>
+    <string name="ok_dialog">OK</string>
+    <string name="cancel_dialog">Cancelar</string>
+    <string name="and">" y "</string>
+    <string name="title_teams">EQUIPOS</string>
+    <string name="button_back">Volver</string>
+    <string name="button_randomize_again">Rehacer equipos</string>
+    <string name="label_team">Equipo</string>
+
+</resources>
